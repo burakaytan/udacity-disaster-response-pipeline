@@ -34,6 +34,17 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
+    #remove rows not containing 0 or 1
+    binary_columns = ['related', 'request', 'offer',
+        'aid_related', 'medical_help', 'medical_products', 'search_and_rescue',
+        'security', 'military', 'child_alone', 'water', 'food', 'shelter',
+        'clothing', 'money', 'missing_people', 'refugees', 'death', 'other_aid',
+        'infrastructure_related', 'transport', 'buildings', 'electricity',
+        'tools', 'hospitals', 'shops', 'aid_centers', 'other_infrastructure',
+        'weather_related', 'floods', 'storm', 'fire', 'earthquake', 'cold',
+        'other_weather', 'direct_report']
+    for column in binary_columns:
+        df.drop(df[(df[column]!=0) & (df[column]!=1)].index, inplace=True)
     # drop duplicates
     df2 = df.drop_duplicates()
     return df2
